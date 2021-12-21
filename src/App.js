@@ -1,6 +1,12 @@
 import { useState } from 'react';
 import './App.css';
 
+export const replaceCamelWithSpaces = (colorName) => {
+  // regex tells if you find capital letter ([A-Z]) in a word (\B ...\B), even if you find it multiple times (/g)
+  // replace it with the letter you found ($1) proceeded by a space
+  return colorName.replace(/\B([A-Z])\B/g, ' $1');
+};
+
 const App = () => {
   const [buttonColor, setButtonColor] = useState('red');
   const [isChecked, setIsChecked] = useState(false);

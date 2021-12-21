@@ -2,6 +2,8 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from './App';
 
+import { replaceCamelWithSpaces } from './App';
+
 describe('App component', () => {
   test('button has correct inital text and color', () => {
     render(<App />);
@@ -61,5 +63,19 @@ describe('App component', () => {
     // re-enable button
     userEvent.click(checkbox);
     expect(button).toHaveClass('btn--blue');
+  });
+});
+
+// unit testing for functions
+// -> invoke imported function with case scenarios
+describe('spaces before camel-case capital letters', () => {
+  test('works for no inner capital letter', () => {
+    expect(replaceCamelWithSpaces('Red')).toBe('Red');
+  });
+  test('works for one inner capital letter', () => {
+    expect(replaceCamelWithSpaces('MidnightBlue')).toBe('Midnight Blue');
+  });
+  test('works for multiple inner capital letters', () => {
+    expect(replaceCamelWithSpaces('MediumVioletRed')).toBe('Medium Violet Red');
   });
 });
