@@ -1,3 +1,7 @@
+# React Testing Library Tutorial
+
+- practical course about how to use react testing library and jest to test your react app
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
