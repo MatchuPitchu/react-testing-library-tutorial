@@ -66,7 +66,7 @@ describe('App component', () => {
   });
 });
 
-// unit testing for functions
+// unit testing functions
 // -> invoke imported function with case scenarios
 // when to unit test?
 // - replaceCamelWithSpaces is simple fn -> could be covered by functional tests on button

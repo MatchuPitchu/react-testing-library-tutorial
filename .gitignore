@@ -21,3 +21,7 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# commented out to have it when I clone project
+# .vscode
+# .eslintcache

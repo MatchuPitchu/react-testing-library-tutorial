@@ -1,0 +1,9 @@
+// this settings are NOT necessary for me - eslint works already globally I guess
+{
+  // where to find custom config file
+  "eslint.options": {
+    "overrideConfigFile": ".eslintrc.json"
+  },
+  // which files to check with eslint
+  "eslint.validate": ["javascript", "javascriptreact"]
+}
