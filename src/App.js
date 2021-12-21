@@ -7,11 +7,16 @@ export const replaceCamelWithSpaces = (colorName) => {
   return colorName.replace(/\B([A-Z])\B/g, ' $1');
 };
 
+const createPartOfClassName = (colorName) => {
+  if (colorName === 'MediumVioletRed') return 'red';
+  if (colorName === 'MidnightBlue') return 'blue';
+};
+
 const App = () => {
-  const [buttonColor, setButtonColor] = useState('red');
+  const [buttonColor, setButtonColor] = useState('MediumVioletRed');
   const [isChecked, setIsChecked] = useState(false);
 
-  const nextBtnColor = buttonColor === 'red' ? 'blue' : 'red';
+  const nextBtnColor = buttonColor === 'MediumVioletRed' ? 'MidnightBlue' : 'MediumVioletRed';
 
   const clickHandler = () => setButtonColor(nextBtnColor);
   const changeCheckboxHandler = () => setIsChecked((prev) => !prev);
@@ -19,11 +24,11 @@ const App = () => {
   return (
     <div>
       <button
-        className={`btn--${isChecked ? 'gray' : buttonColor}`}
+        className={`btn--${isChecked ? 'gray' : createPartOfClassName(buttonColor)}`}
         onClick={clickHandler}
         disabled={isChecked}
       >
-        Change to {nextBtnColor}
+        Change to {replaceCamelWithSpaces(nextBtnColor)}
       </button>
       <input
         type='checkbox'

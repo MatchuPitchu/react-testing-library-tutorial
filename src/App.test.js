@@ -7,22 +7,22 @@ import { replaceCamelWithSpaces } from './App';
 describe('App component', () => {
   test('button has correct inital text and color', () => {
     render(<App />);
-    const button = screen.getByRole('button', { name: /change to blue/i });
+    const button = screen.getByRole('button', { name: /change to midnight blue/i });
     expect(button).toHaveClass('btn--red');
   });
 
   test('button changes text and color when clicked', () => {
     render(<App />);
-    const button = screen.getByRole('button', { name: /change to blue/i });
+    const button = screen.getByRole('button', { name: /change to midnight blue/i });
     userEvent.click(button);
-    expect(button).toHaveTextContent(/change to red/i);
+    expect(button).toHaveTextContent(/change to medium violet red/i);
     expect(button).toHaveClass('btn--blue');
   });
 
   test('button is first enabled and can be unabled and re-enabled with checkbox', () => {
     render(<App />);
     // check that btn starts out enabled
-    const button = screen.getByRole('button', { name: /change to blue/i });
+    const button = screen.getByRole('button', { name: /change to midnight blue/i });
     expect(button).toBeEnabled();
 
     // check that checkbox starts out unchecked
@@ -38,7 +38,7 @@ describe('App component', () => {
 
   test('button changes color to gray when disabled and reverts to red', () => {
     render(<App />);
-    const button = screen.getByRole('button', { name: /change to blue/i });
+    const button = screen.getByRole('button', { name: /change to midnight blue/i });
     const checkbox = screen.getByRole('checkbox', { name: /disable button/i });
 
     // disable button
@@ -51,7 +51,7 @@ describe('App component', () => {
 
   test('clicked disabled button is gray and reverts to blue', () => {
     render(<App />);
-    const button = screen.getByRole('button', { name: /change to blue/i });
+    const button = screen.getByRole('button', { name: /change to midnight blue/i });
     const checkbox = screen.getByRole('checkbox', { name: /disable button/i });
 
     // chahnge button to blue
@@ -68,6 +68,11 @@ describe('App component', () => {
 
 // unit testing for functions
 // -> invoke imported function with case scenarios
+// when to unit test?
+// - replaceCamelWithSpaces is simple fn -> could be covered by functional tests on button
+// - for more complicated fns, unit tests can
+//   - cover all possible edge cases and
+//   - determine what caused functional tests to fail
 describe('spaces before camel-case capital letters', () => {
   test('works for no inner capital letter', () => {
     expect(replaceCamelWithSpaces('Red')).toBe('Red');
