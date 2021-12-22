@@ -11,7 +11,7 @@ const createPartOfClassName = (colorName) => {
   if (colorName === 'MidnightBlue') return 'blue';
 };
 
-const TestingOne = () => {
+const Testing = () => {
   const [buttonColor, setButtonColor] = useState('MediumVioletRed');
   const [isChecked, setIsChecked] = useState(false);
 
@@ -41,4 +41,4 @@ const TestingOne = () => {
   );
 };
 
-export default TestingOne;
+export default Testing;

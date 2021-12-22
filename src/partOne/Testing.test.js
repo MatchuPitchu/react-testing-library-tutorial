@@ -1,18 +1,18 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import TestingOne from './TestingOne';
+import Testing from './Testing';
 
-import { replaceCamelWithSpaces } from '.q/TestingOne';
+import { replaceCamelWithSpaces } from './Testing';
 
 describe('TestingPartOne component', () => {
   test('button has correct inital text and color', () => {
-    render(<TestingOne />);
+    render(<Testing />);
     const button = screen.getByRole('button', { name: /change to midnight blue/i });
     expect(button).toHaveClass('btn--red');
   });
 
   test('button changes text and color when clicked', () => {
-    render(<TestingOne />);
+    render(<Testing />);
     const button = screen.getByRole('button', { name: /change to midnight blue/i });
     userEvent.click(button);
     expect(button).toHaveTextContent(/change to medium violet red/i);
@@ -20,7 +20,7 @@ describe('TestingPartOne component', () => {
   });
 
   test('button is first enabled and can be unabled and re-enabled with checkbox', () => {
-    render(<TestingOne />);
+    render(<Testing />);
     // check that btn starts out enabled
     const button = screen.getByRole('button', { name: /change to midnight blue/i });
     expect(button).toBeEnabled();
@@ -37,7 +37,7 @@ describe('TestingPartOne component', () => {
   });
 
   test('button changes color to gray when disabled and reverts to red', () => {
-    render(<TestingOne />);
+    render(<Testing />);
     const button = screen.getByRole('button', { name: /change to midnight blue/i });
     const checkbox = screen.getByRole('checkbox', { name: /disable button/i });
 
@@ -50,7 +50,7 @@ describe('TestingPartOne component', () => {
   });
 
   test('clicked disabled button is gray and reverts to blue', () => {
-    render(<TestingOne />);
+    render(<Testing />);
     const button = screen.getByRole('button', { name: /change to midnight blue/i });
     const checkbox = screen.getByRole('checkbox', { name: /disable button/i });
 

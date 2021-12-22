@@ -1,11 +1,13 @@
-import TestingPartOne from './components/TestingOne';
+// import Testing from './partOne/Testing';
 import './App.css';
+import SummaryForm from './pages/summary/SummaryForm';
 
 const App = () => {
   return (
-    <>
-      <TestingPartOne />
-    </>
+    <div className='app'>
+      {/* <Testing /> */}
+      <SummaryForm />
+    </div>
   );
 };
 
