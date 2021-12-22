@@ -2,7 +2,7 @@
 {
   // where to find custom config file
   "eslint.options": {
-    "overrideConfigFile": ".eslintrc.json"
+    "overrideConfigFile": "./.eslintrc.json"
   },
   // which files to check with eslint
   "eslint.validate": ["javascript", "javascriptreact"]

@@ -1,0 +1,19 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "firefox",
+      "request": "launch",
+      "reAttach": true,
+      "name": "Debug Firefox localhost",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}",
+      "pathMappings": [
+        {
+          "url": "file:///C:/Users/mflohr/Documents/02%20Apps-MF/37_react-testing-library/src",
+          "path": "${workspaceFolder}/src"
+        }
+      ]
+    }
+  ]
+}
