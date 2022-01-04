@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import Row from 'react-bootstrap/Row';
 import ScoopOption from './ScoopOption';
+import ToppingOption from './ToppingOption';
 
 // optionType is 'scoops' or 'toppings'
 const Options = ({ optionType }) => {
@@ -19,7 +20,7 @@ const Options = ({ optionType }) => {
     fetching();
   }, [optionType]);
 
-  const ItemComponent = optionType === 'scoops' ? ScoopOption : null;
+  const ItemComponent = optionType === 'scoops' ? ScoopOption : ToppingOption;
   const optionItems = items.map(({ name, imagePath }) => (
     <ItemComponent key={name} name={name} imagePath={imagePath} />
   ));

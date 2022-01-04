@@ -14,8 +14,18 @@ describe('Options component', () => {
     expect(scoopImages).toHaveLength(2);
 
     // confirm alt text of images (create array of alt texts)
-    const altText = scoopImages.map((element) => element.alt);
+    const altText = scoopImages.map((img) => img.alt);
     // arrays + objects use toEqual() while nums + string use toBe()
     expect(altText).toEqual(['Chocolate scoop', 'Vanilla scoop']);
+  });
+
+  test('displays image for each topping from server', async () => {
+    render(<Options optionType='toppings' />);
+
+    const toppingImages = await screen.findAllByRole('img', { name: /topping$/i });
+    expect(toppingImages).toHaveLength(3);
+
+    const altText = toppingImages.map((img) => img.alt);
+    expect(altText).toEqual(['Cherries topping', 'M&Ms topping', 'Hot fudge topping']);
   });
 });
