@@ -1,4 +1,4 @@
-// import Testing from './partOne/Testing';
+// import Testing from './exerciseOne/Testing';
 import './App.css';
 import SummaryForm from './pages/summary/SummaryForm';
 
