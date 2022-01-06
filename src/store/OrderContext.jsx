@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
 import { pricePerItem } from '../constants/index';
+import { formatCurrency } from '../utilities/index';
 
 const OrderContext = createContext();
 
@@ -9,16 +10,6 @@ export const useOrderContext = () => {
   const context = useContext(OrderContext);
   if (!context) throw new Error('useOrderContext must be used within an OrderContextProvider');
   return context;
-};
-
-// helper fn to format number as currency
-const formatCurrency = (amount) => {
-  // Intl.NumberFormat object enables language-sensitive number formatting.
-  return new Intl.NumberFormat('de-DE', {
-    style: 'currency',
-    currency: 'EUR',
-    minimumFractionDigits: 2,
-  }).format(amount);
 };
 
 // helper fn to calculate subtotals
@@ -41,7 +32,7 @@ export const OrderContextProvider = ({ children }) => {
 
   const [totals, setTotals] = useState({
     scoops: formatCurrency(0),
-    topping: formatCurrency(0),
+    toppings: formatCurrency(0),
     grandTotal: formatCurrency(0),
   });
 
@@ -53,7 +44,7 @@ export const OrderContextProvider = ({ children }) => {
 
     setTotals({
       scoops: formatCurrency(scoopsSubtotal),
-      topping: formatCurrency(toppingsSubtotal),
+      toppings: formatCurrency(toppingsSubtotal),
       grandTotal: formatCurrency(grandTotal),
     });
   }, [optionCounts]);

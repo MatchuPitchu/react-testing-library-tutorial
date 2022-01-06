@@ -12,7 +12,7 @@ describe('Calculation of price', () => {
     // Here: omit wrapper, because of customized render method
     render(<Options optionType='scoops' />);
 
-    // make sure total starts out $0.00
+    // make sure total starts out at 0.00 €
     const scoopsSubtotal = screen.getByText(/^scoops total:.+€$/i);
     expect(scoopsSubtotal).toHaveTextContent(/0.00/);
 
@@ -28,5 +28,27 @@ describe('Calculation of price', () => {
     userEvent.clear(chocolateInput);
     userEvent.type(chocolateInput, '2');
     expect(scoopsSubtotal).toHaveTextContent(/6.00/);
+  });
+
+  test('updates toppings subtotal when toppings change', async () => {
+    render(<Options optionType='toppings' />);
+
+    // make sure total starts out at 0.00 €
+    const toppingsTotal = screen.getByText(/^toppings total:.+€$/i);
+    expect(toppingsTotal).toHaveTextContent(/0.00/);
+
+    // add cherries and check subtotal
+    const cherriesCheckbox = await screen.findByRole('checkbox', { name: 'Cherries' });
+    userEvent.click(cherriesCheckbox);
+    expect(toppingsTotal).toHaveTextContent(/1.50/);
+
+    // add hot fudge and check subtotal
+    const hotFudgeCheckbox = await screen.findByRole('checkbox', { name: 'Hot fudge' });
+    userEvent.click(hotFudgeCheckbox);
+    expect(toppingsTotal).toHaveTextContent(/3.00/);
+
+    // remove hot fudge and check subtotal
+    userEvent.click(hotFudgeCheckbox);
+    expect(toppingsTotal).toHaveTextContent(/1.50/);
   });
 });

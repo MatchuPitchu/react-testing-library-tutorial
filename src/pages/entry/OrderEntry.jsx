@@ -3,7 +3,7 @@ import Options from './Options';
 const OrderEntry = () => {
   return (
     <div>
-      <Options optionType='scoop' />
+      <Options optionType='scoops' />
       <Options optionType='toppings' />
     </div>
   );
