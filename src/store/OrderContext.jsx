@@ -3,20 +3,17 @@ import { pricePerItem } from '../constants/index';
 
 const OrderContext = createContext();
 
-// create custom hook to check whether we're inside a provider
-// advantage: you don't have to import the Context in every other file where you're using it
+// custom hook to check whether you are inside a provider AND it returns context data object
+// advantage: avoid importing the Context in every other component file where you're using it
 export const useOrderContext = () => {
   const context = useContext(OrderContext);
-
-  if (!context) {
-    throw new Error('useOrderContext must be used within an OrderContextProvider');
-  }
-
+  if (!context) throw new Error('useOrderContext must be used within an OrderContextProvider');
   return context;
 };
 
 // helper fn to format number as currency
 const formatCurrency = (amount) => {
+  // Intl.NumberFormat object enables language-sensitive number formatting.
   return new Intl.NumberFormat('de-DE', {
     style: 'currency',
     currency: 'EUR',
