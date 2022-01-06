@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen } from '../../../__test-utils__/testing-library-utils';
 import Options from '../Options';
 
 describe('Options component', () => {
