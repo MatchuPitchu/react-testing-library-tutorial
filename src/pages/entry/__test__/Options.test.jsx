@@ -11,12 +11,12 @@ describe('Options component', () => {
 
     // find images with 'scoop' at the end of alt text
     const scoopImages = await screen.findAllByRole('img', { name: /scoop$/i });
-    expect(scoopImages).toHaveLength(2);
+    expect(scoopImages).toHaveLength(3);
 
     // confirm alt text of images (create array of alt texts)
     const altText = scoopImages.map((img) => img.alt);
     // arrays + objects use toEqual() while nums + string use toBe()
-    expect(altText).toEqual(['Chocolate scoop', 'Vanilla scoop']);
+    expect(altText).toEqual(['Chocolate scoop', 'Vanilla scoop', 'Salted caramel scoop']);
   });
 
   test('displays image for each topping from server', async () => {

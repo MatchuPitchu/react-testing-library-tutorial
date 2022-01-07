@@ -27,10 +27,10 @@ test('order phases for user order flow', async () => {
   const summaryHeading = screen.getByRole('heading', { name: /order summary/i });
   expect(summaryHeading).toBeInTheDocument();
 
-  const scoopsHeading = screen.getByRole('heading', { name: /scoops: 6.00 €/i });
+  const scoopsHeading = screen.getByRole('heading', { name: /scoops: 6.00/i });
   expect(scoopsHeading).toBeInTheDocument();
 
-  const toppingsHeading = screen.getByRole('heading', { name: /toppings: 1.50 €/i });
+  const toppingsHeading = screen.getByRole('heading', { name: /toppings: 1.50/i });
   expect(toppingsHeading).toBeInTheDocument();
 
   // check summary option items OPTION 1
@@ -39,7 +39,7 @@ test('order phases for user order flow', async () => {
   expect(screen.getByText('Cherries')).toBeInTheDocument();
 
   // check summary option items OPTION 2
-  const optionItems = screen.getAllByRole('listItem');
+  const optionItems = screen.getAllByRole('listitem');
   const optionItemsText = optionItems.map((item) => item.textContent);
   expect(optionItemsText).toEqual(['1 Vanilla', '2 Chocolate', 'Cherries']);
 

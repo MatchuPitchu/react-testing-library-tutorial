@@ -4,7 +4,7 @@ import SummaryForm from '../SummaryForm';
 
 describe('SummaryForm component', () => {
   test('should render initially unchecked checkbox and disabled button', () => {
-    render(<SummaryForm />);
+    render(<SummaryForm setOrderPhase={jest.fn()} />);
     const checkbox = screen.getByRole('checkbox', { name: /terms and conditions/i });
     expect(checkbox).not.toBeChecked();
 
@@ -13,7 +13,7 @@ describe('SummaryForm component', () => {
   });
 
   test('checkbox enables button on first click and disables it on second click', () => {
-    render(<SummaryForm />);
+    render(<SummaryForm setOrderPhase={jest.fn()} />);
     const checkbox = screen.getByRole('checkbox', { name: /terms and conditions/i });
     const confirmBtn = screen.getByRole('button', { name: /confirm/i });
 
@@ -24,7 +24,7 @@ describe('SummaryForm component', () => {
   });
 
   test('popover appears on hovering', async () => {
-    render(<SummaryForm />);
+    render(<SummaryForm setOrderPhase={jest.fn()} />);
     // popover is hidden
     const nullPopover = screen.queryByText(/no ice cream/i);
     expect(nullPopover).not.toBeInTheDocument();

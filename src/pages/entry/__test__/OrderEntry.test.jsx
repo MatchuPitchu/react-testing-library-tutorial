@@ -14,7 +14,9 @@ describe('OrderEntry component', () => {
       rest.get('http://localhost:3030/toppings', (req, res, ctx) => res(ctx.status(500)))
     );
 
-    render(<OrderEntry />);
+    // use Jest mock function that does nothing and is not needed for assertion in test,
+    // but prop is needed for this component
+    render(<OrderEntry setOrderPhase={jest.fn()} />);
 
     // waitFor: if you need to wait until all of your mock server promises are resolved;
     // without waitFor alerts array would only have length 1
