@@ -6,6 +6,13 @@ import ScoopOption from './ScoopOption';
 import ToppingOption from './ToppingOption';
 import AlertBanner from '../components/AlertBanner';
 
+import chocolate from '../../images/chocolate.png';
+import vanilla from '../../images/vanilla.png';
+import saltedCaramel from '../../images/salted-caramel.png';
+import cherries from '../../images/cherries.png';
+import mAndMs from '../../images/m-and-ms.png';
+import hotFudge from '../../images/hot-fudge.png';
+
 // optionType is 'scoops' or 'toppings'
 const Options = ({ optionType }) => {
   const [items, setItems] = useState([]);
@@ -18,16 +25,18 @@ const Options = ({ optionType }) => {
         // not working, did not implement real server
         // const response = await fetch(`http://localhost:3030/${optionType}`);
         // const data = await response.json();
+        // setItems(data)
         if (optionType === 'scoops')
           setItems([
-            { name: 'Chocolate', imagePath: '/images/chocolate.png' },
-            { name: 'Vanilla', imagePath: '/images/vanilla.png' },
+            { name: 'Chocolate', imagePath: chocolate },
+            { name: 'Vanilla', imagePath: vanilla },
+            { name: 'Salted caramel', imagePath: saltedCaramel },
           ]);
         if (optionType === 'toppings')
           setItems([
-            { name: 'Cherries', imagePath: '/images/cherries.png' },
-            { name: 'M&Ms', imagePath: '/images/m-and-ms.png' },
-            { name: 'Hot fudge', imagePath: '/images/hot-fudge.png' },
+            { name: 'Cherries', imagePath: cherries },
+            { name: 'M&Ms', imagePath: mAndMs },
+            { name: 'Hot fudge', imagePath: hotFudge },
           ]);
       } catch (error) {
         console.log(error);

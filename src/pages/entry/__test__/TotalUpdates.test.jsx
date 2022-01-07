@@ -1,6 +1,7 @@
 import { render, screen } from '../../../__test-utils__/testing-library-utils';
 import userEvent from '@testing-library/user-event';
 import Options from '../Options';
+import OrderEntry from '../OrderEntry';
 // not needed anymore because of customized render method
 // import { OrderContextProvider } from '../../../store/OrderContext';
 
@@ -50,5 +51,66 @@ describe('Calculation of price', () => {
     // remove hot fudge and check subtotal
     userEvent.click(hotFudgeCheckbox);
     expect(toppingsTotal).toHaveTextContent(/1.50/);
+  });
+});
+
+describe('grand total', () => {
+  test('updates properly if scoop is added first', async () => {
+    render(<OrderEntry />);
+    const grandTotal = screen.getByRole('heading', { name: /^grand total:.+€$/i });
+
+    // grand total starts at 0.00 €
+    expect(grandTotal).toHaveTextContent(/0.00/);
+
+    // add vanilla scoops
+    const vanillaInput = await screen.findByRole('spinbutton', { name: 'Vanilla' });
+    userEvent.clear(vanillaInput);
+    userEvent.type(vanillaInput, '2');
+    expect(grandTotal).toHaveTextContent(/4.00/);
+
+    // add cherries topping
+    const cherriesCheckbox = await screen.findByRole('checkbox', { name: 'Cherries' });
+    userEvent.click(cherriesCheckbox);
+    expect(grandTotal).toHaveTextContent(/5.50/);
+  });
+
+  test('updates properly if topping is added first', async () => {
+    render(<OrderEntry />);
+    const grandTotal = screen.getByRole('heading', { name: /^grand total:.+€$/i });
+
+    // add cherries
+    const cherriesCheckbox = await screen.findByRole('checkbox', { name: 'Cherries' });
+    userEvent.click(cherriesCheckbox);
+    expect(grandTotal).toHaveTextContent(/1.50/);
+
+    // add vanilla
+    const vanillaInput = await screen.findByRole('spinbutton', { name: 'Vanilla' });
+    userEvent.clear(vanillaInput);
+    userEvent.type(vanillaInput, '2');
+    expect(grandTotal).toHaveTextContent(/5.50/);
+  });
+
+  test('updates properly if item is removed', async () => {
+    render(<OrderEntry />);
+
+    // add cherries
+    const cherriesCheckbox = await screen.findByRole('checkbox', { name: 'Cherries' });
+    userEvent.click(cherriesCheckbox); // grand total 1.50
+
+    // add vanilla
+    const vanillaInput = await screen.findByRole('spinbutton', { name: 'Vanilla' });
+    userEvent.clear(vanillaInput);
+    userEvent.type(vanillaInput, '2'); // grand total 5.50
+
+    // remove 1 vanilla
+    userEvent.clear(vanillaInput);
+    userEvent.type(vanillaInput, '1'); // grand total 3.50
+
+    const grandTotal = screen.getByRole('heading', { name: /^grand total:.+€$/i });
+    expect(grandTotal).toHaveTextContent(/3.50/);
+
+    // remove cherries
+    userEvent.click(cherriesCheckbox);
+    expect(grandTotal).toHaveTextContent(/2.00/);
   });
 });
