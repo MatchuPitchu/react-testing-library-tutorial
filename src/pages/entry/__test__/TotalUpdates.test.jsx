@@ -15,6 +15,7 @@ describe('Calculation of price', () => {
 
     // make sure total starts out at 0.00 €
     const scoopsSubtotal = screen.getByText(/^scoops total:.+€$/i);
+    // regex /0.00/ validates also 0,00
     expect(scoopsSubtotal).toHaveTextContent(/0.00/);
 
     // update vanilla scoops to 1 and check subtotal

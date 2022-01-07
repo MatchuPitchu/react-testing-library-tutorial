@@ -66,12 +66,19 @@ export const OrderContextProvider = ({ children }) => {
     });
   }, []);
 
+  const resetOrder = useCallback(() => {
+    setOptionCounts({
+      scoops: new Map(),
+      toppings: new Map(),
+    });
+  }, []);
+
   // avoid recalculating value with useMemo hook
   const value = useMemo(() => {
-    // getter: object containing option counts for scoops and toppings, subtotals and totals
-    // setter: updateOptionCount
-    return [{ ...optionCounts, totals }, updateItemCount];
-  }, [optionCounts, totals, updateItemCount]);
+    // getter: option counts for scoops and toppings AND totals (subtotals and total)
+    // setter: updateOptionCount, resetOrder
+    return { optionCounts, totals, updateItemCount, resetOrder };
+  }, [optionCounts, totals, updateItemCount, resetOrder]);
 
   return <OrderContext.Provider value={value}>{children}</OrderContext.Provider>;
 };

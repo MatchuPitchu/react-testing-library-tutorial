@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useOrderContext } from '../../store/OrderContext';
 import { pricePerItem } from '../../constants/index';
+import { formatCurrency } from '../../utilities/index';
 import Row from 'react-bootstrap/Row';
 import ScoopOption from './ScoopOption';
 import ToppingOption from './ToppingOption';
@@ -17,7 +18,7 @@ import hotFudge from '../../images/hot-fudge.png';
 const Options = ({ optionType }) => {
   const [items, setItems] = useState([]);
   const [error, setError] = useState(false);
-  const [orderDetails, updateItemCount] = useOrderContext();
+  const { totals, updateItemCount } = useOrderContext();
 
   useEffect(() => {
     const fetching = async () => {
@@ -67,9 +68,9 @@ const Options = ({ optionType }) => {
   return (
     <>
       <h2>{title}</h2>
-      <p>{pricePerItem[optionType]} each</p>
+      <p>{formatCurrency(pricePerItem[optionType])} each</p>
       <p>
-        {title} total: {orderDetails.totals[optionType]}
+        {title} total: {totals[optionType]}
       </p>
       <Row>{optionItems}</Row>
     </>
