@@ -1,3 +1,4 @@
+import userEvent from '@testing-library/user-event';
 import { render, screen } from '../../../__test-utils__/testing-library-utils';
 import Options from '../Options';
 
@@ -27,5 +28,18 @@ describe('Options component', () => {
 
     const altText = toppingImages.map((img) => img.alt);
     expect(altText).toEqual(['Cherries topping', 'M&Ms topping', 'Hot fudge topping']);
+  });
+
+  test('do not update total if scoops input is invalid', async () => {
+    render(<Options optionType='scoops' />);
+
+    // expect btn to be disabled after adding scoop
+    const vanillaInput = await screen.findByRole('spinbutton', { name: /vanilla/i });
+    userEvent.clear(vanillaInput);
+    userEvent.type(vanillaInput, '-1');
+
+    // make sure scoops subtotal hasn't updated
+    const scoopsSubtotal = screen.getByText(/^scoops total:.+€$/i);
+    expect(scoopsSubtotal).toBeInTheDocument();
   });
 });

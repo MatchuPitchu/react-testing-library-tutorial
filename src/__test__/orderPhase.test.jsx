@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
 
-test('order phases for user order flow', async () => {
+test('order process for user order flow', async () => {
   // don't need to import customized render method because App.jsx includes already Context Provider
   render(<App />);
   // add scoops and toppings
@@ -50,10 +50,19 @@ test('order phases for user order flow', async () => {
   const confirmOrderBtn = screen.getByRole('button', { name: /confirm order/i });
   userEvent.click(confirmOrderBtn);
 
+  // expect "loading" to show immediatly after clicking on button
+  // --> uncommented: it's not working because I have no real POST request in my component
+  // const loading = screen.getByText(/loading/i);
+  // expect(loading).toBeInTheDocument();
+
   // confirm order number on confirmation page
   // this one is async because there is a POST request to server before showing the text
   const thankYouHeader = await screen.findByRole('heading', { name: /thank you/i });
   expect(thankYouHeader).toBeInTheDocument();
+
+  // expect that "loading" has disappeared
+  const notLoading = screen.queryByText(/loading/i);
+  expect(notLoading).not.toBeInTheDocument();
 
   const orderNumber = await screen.findByText(/order number/i);
   expect(orderNumber).toBeInTheDocument();
@@ -71,4 +80,23 @@ test('order phases for user order flow', async () => {
   // wait for items to appear: otherwise it could be that Testing Library throws an error, when updates happing after test is over
   await screen.findByRole('spinbutton', { name: /vanilla/i });
   await screen.findByRole('checkbox', { name: /cherries/i });
+});
+
+test('Toppings header is not on summary page if no toppings ordered', async () => {
+  render(<App />);
+
+  // add scoops and toppings
+  const vanillaInput = await screen.findByRole('spinbutton', { name: 'Vanilla' });
+  userEvent.clear(vanillaInput);
+  userEvent.type(vanillaInput, '1');
+
+  // find and click order btn
+  const orderSummaryBtn = screen.getByRole('button', { name: /order sundae/i });
+  userEvent.click(orderSummaryBtn);
+
+  const scoopsHeading = screen.getByRole('heading', { name: /scoops: 2.00/i });
+  expect(scoopsHeading).toBeInTheDocument();
+
+  const toppingsHeading = screen.queryByRole('heading', { name: /toppings/i });
+  expect(toppingsHeading).not.toBeInTheDocument();
 });

@@ -1,4 +1,5 @@
 import { render, screen, waitFor } from '../../../__test-utils__/testing-library-utils';
+import userEvent from '@testing-library/user-event';
 import OrderEntry from '../OrderEntry';
 import { server } from '../../../mocks/server';
 import { rest } from 'msw';
@@ -24,5 +25,24 @@ describe('OrderEntry component', () => {
       const alerts = await screen.findAllByRole('alert');
       expect(alerts).toHaveLength(2);
     });
+  });
+
+  test('disable order button if there are no scoops ordered', async () => {
+    render(<OrderEntry setOrderPhase={jest.fn()} />);
+
+    // order btn is disabled first
+    let orderBtn = screen.getByRole('button', { name: /order sundae/i });
+    expect(orderBtn).toBeDisabled();
+
+    // expect btn to be enabled after adding scoop
+    const vanillaInput = await screen.findByRole('spinbutton', { name: 'Vanilla' });
+    userEvent.clear(vanillaInput);
+    userEvent.type(vanillaInput, '1');
+    expect(orderBtn).toBeEnabled();
+
+    // expect btn to be disabled again after removing scoop
+    userEvent.clear(vanillaInput);
+    userEvent.type(vanillaInput, '0');
+    expect(orderBtn).toBeDisabled();
   });
 });
